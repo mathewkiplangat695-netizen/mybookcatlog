@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDFCFB"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="16dp">
+
+            <!-- Bookstore Brand / Page Title -->
+            <TextView
+                android:id="@+id/textViewPageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Book Catalog"
+                android:textColor="#2C3E50"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Functional Search Bar -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/searchCardView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:cardBackgroundColor="#F5F5F5"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_menu_search"
+                        app:tint="#2C3E50" />
+
+                    <EditText
+                        android:id="@+id/editTextSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:background="@android:color/transparent"
+                        android:hint="Search books or authors..."
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:textColor="#2C3E50"
+                        android:textColorHint="#95A5A6"
+                        android:textSize="14sp"
+                        android:maxLines="1" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Book Categories Container (Hidden in Home/Cart) -->
+            <HorizontalScrollView
+                android:id="@+id/categoryScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/catAll"
+                        style="@style/AlibabaCategoryTab"
+                        android:text="All" />
+                    <TextView
+                        android:id="@+id/catFiction"
+                        style="@style/AlibabaCategoryTab"
+                        android:text="Fiction" />
+                    <TextView
+                        android:id="@+id/catThriller"
+                        style="@style/AlibabaCategoryTab"
+                        android:text="Thriller" />
+                    <TextView
+                        android:id="@+id/catSciFi"
+                        style="@style/AlibabaCategoryTab"
+                        android:text="Sci-Fi" />
+                    <TextView
+                        android:id="@+id/catSelfHelp"
+                        style="@style/AlibabaCategoryTab"
+                        android:text="Self-Help" />
+                    <TextView
+                        android:id="@+id/catBusiness"
+                        style="@style/AlibabaCategoryTab"
+                        android:text="Business" />
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBooks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="160dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/book_item" />
+
+    <!-- Cart Summary Card (Shown only in Cart View) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cartSummaryCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="60dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Amount"
+                    android:textColor="#7F8C8D"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textViewTotalAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KES 0.00"
+                    android:textColor="#2C3E50"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonCheckout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CHECKOUT"
+                app:backgroundTint="#2C3E50"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        app:itemIconTint="@color/bnv_tab_item_foreground"
+        app:itemTextColor="@color/bnv_tab_item_foreground"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

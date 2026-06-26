@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">my book catalog</string>
+    <string name="title_book_catalog">Book Catalog</string>
+    <string name="title_browse_genres">Browse Genres</string>
+    <string name="title_shopping_cart">Shopping Cart</string>
+    <string name="msg_please_select_payment">Please select a payment method</string>
+    <string name="msg_payment_successful">Payment successful via %1$s! Order placed.</string>
+    <string name="msg_cart_empty">Your cart is empty!</string>
+    <string name="msg_added_to_cart">%1$s added to cart!</string>
+    <string name="label_total_amount">Total Amount: KES %.2f</string>
+    <string name="label_price_kes">KES %.2f</string>
+    <string name="payment_method_mpesa">M-Pesa</string>
+    <string name="payment_method_card">Card</string>
+</resources>

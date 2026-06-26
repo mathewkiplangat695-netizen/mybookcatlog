@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <!-- Small Cover -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="90dp"
+            app:cardBackgroundColor="#FDFCFB"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="1dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@android:drawable/ic_menu_agenda"
+                app:tint="#D4C4B7" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewCartTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/text_main"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="The Last Ember" />
+
+            <TextView
+                android:id="@+id/textViewCartPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/accent"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="KES 1,200.00" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- Quantity Controls -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonMinus"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="-"
+                    android:textColor="@color/text_main"
+                    android:textSize="18sp"
+                    app:cornerRadius="4dp"
+                    app:strokeColor="#DDDDDD" />
+
+                <TextView
+                    android:id="@+id/textViewQuantity"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/text_main"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonPlus"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="+"
+                    android:textColor="@color/text_main"
+                    android:textSize="18sp"
+                    app:cornerRadius="4dp"
+                    app:strokeColor="#DDDDDD" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <!-- Remove Button -->
+                <ImageView
+                    android:id="@+id/buttonRemove"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_delete"
+                    app:tint="#E74C3C" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

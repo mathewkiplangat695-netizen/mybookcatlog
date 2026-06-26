@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#2C3E50</color>
+    <color name="primary_light">#F5F5F5</color>
+    <color name="accent">#E67E22</color>
+    <color name="text_main">#2C3E50</color>
+    <color name="text_secondary">#7F8C8D</color>
+    <color name="background_paper">#FDFCFB</color>
+
+    <!-- Category Colors -->
+    <color name="cat_all">#2C3E50</color>
+    <color name="cat_fiction">#3498DB</color>
+    <color name="cat_thriller">#E74C3C</color>
+    <color name="cat_scifi">#9B59B6</color>
+    <color name="cat_selfhelp">#27AE60</color>
+    <color name="cat_business">#F39C12</color>
+</resources>
