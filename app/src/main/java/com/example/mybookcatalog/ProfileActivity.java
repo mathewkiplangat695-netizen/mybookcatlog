@@ -18,7 +18,6 @@ public class ProfileActivity extends AppCompatActivity {
         TextView textViewUserEmail = findViewById(R.id.textViewUserEmail);
         TextView menuOrderHistory = findViewById(R.id.menuOrderHistory);
         TextView menuSettings = findViewById(R.id.menuSettings);
-        TextView menuLogout = findViewById(R.id.menuLogout);
 
         User currentUser = SessionManager.getCurrentUser();
         if (currentUser != null) {
@@ -32,15 +31,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         menuSettings.setOnClickListener(v -> {
             Toast.makeText(this, "Settings feature coming soon!", Toast.LENGTH_SHORT).show();
-        });
-
-        menuLogout.setOnClickListener(v -> {
-            SessionManager.logout();
-            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
         });
         
         findViewById(R.id.toolbarProfile).setOnClickListener(v -> finish());

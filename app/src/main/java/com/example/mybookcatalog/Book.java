@@ -7,16 +7,14 @@ public class Book implements Serializable {
     private String author;
     private String genre;
     private String description;
-    private double price;
     private float rating;
     private int imageResId;
 
-    public Book(String title, String author, String genre, String description, double price, float rating, int imageResId) {
+    public Book(String title, String author, String genre, String description, float rating, int imageResId) {
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.description = description;
-        this.price = price;
         this.rating = rating;
         this.imageResId = imageResId;
     }
@@ -35,10 +33,6 @@ public class Book implements Serializable {
 
     public String getDescription() {
         return description;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public float getRating() {

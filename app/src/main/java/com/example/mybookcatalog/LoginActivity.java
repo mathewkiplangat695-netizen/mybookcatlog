@@ -2,6 +2,7 @@ package com.example.mybookcatalog;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,15 +25,19 @@ public class LoginActivity extends AppCompatActivity {
         TextView textViewForgotPassword = findViewById(R.id.textViewForgotPassword);
 
         buttonLogin.setOnClickListener(v -> {
-            String email = editTextEmail.getText().toString().trim();
-            String password = editTextPassword.getText().toString().trim();
+            Editable emailText = editTextEmail.getText();
+            Editable passwordText = editTextPassword.getText();
+            
+            String email = emailText != null ? emailText.toString().trim() : "";
+            String password = passwordText != null ? passwordText.toString().trim() : "";
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
                 if (SessionManager.login(email, password)) {
                     User user = SessionManager.getCurrentUser();
-                    Toast.makeText(this, "Welcome back, " + user.getName(), Toast.LENGTH_SHORT).show();
+                    String name = (user != null) ? user.getName() : "User";
+                    Toast.makeText(this, "Welcome back, " + name, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 } else {
@@ -41,12 +46,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        textViewSignUp.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, SignupActivity.class));
-        });
+        textViewSignUp.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignupActivity.class)));
 
-        textViewForgotPassword.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
-        });
+        textViewForgotPassword.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class)));
     }
 }

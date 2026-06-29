@@ -22,8 +22,4 @@ public class CartItem implements Serializable {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    public double getSubtotal() {
-        return book.getPrice() * quantity;
-    }
 }

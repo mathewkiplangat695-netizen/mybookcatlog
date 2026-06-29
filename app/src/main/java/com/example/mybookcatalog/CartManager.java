@@ -37,14 +37,6 @@ public class CartManager {
         return cartItems;
     }
 
-    public static double getTotalPrice() {
-        double total = 0;
-        for (CartItem item : cartItems) {
-            total += item.getSubtotal();
-        }
-        return total;
-    }
-
     public static void clearCart() {
         cartItems.clear();
     }

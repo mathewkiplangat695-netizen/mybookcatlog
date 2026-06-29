@@ -1,9 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MyBookCatalog" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">#2C3E50</item> <!-- Midnight Blue -->
-        <item name="colorSecondary">#E67E22</item> <!-- Alibaba-style Orange -->
-        <item name="android:windowBackground">#FDFCFB</item> <!-- Creamy Paper Background -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
     </style>
 
     <style name="Theme.MyBookCatalog" parent="Base.Theme.MyBookCatalog" />
@@ -15,9 +17,10 @@
         <item name="android:paddingHorizontal">16dp</item>
         <item name="android:paddingVertical">8dp</item>
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">#7F8C8D</item>
+        <item name="android:textColor">@color/text_secondary</item>
         <item name="android:background">@drawable/bg_category_pill</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

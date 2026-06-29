@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
-import java.util.Locale;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
@@ -42,8 +41,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         Book book = item.getBook();
 
         holder.textViewCartTitle.setText(book.getTitle());
-        holder.textViewCartPrice.setText(String.format(Locale.getDefault(), "KES %.2f", book.getPrice()));
         holder.textViewQuantity.setText(String.valueOf(item.getQuantity()));
+        
+        // Price removed from view
+        holder.textViewCartPrice.setVisibility(View.GONE);
+
+        if (book.getImageResId() != 0) {
+            holder.imageViewCartCover.setImageResource(book.getImageResId());
+            holder.imageViewCartCover.setImageTintList(null);
+        } else {
+            holder.imageViewCartCover.setImageResource(android.R.drawable.ic_menu_agenda);
+        }
 
         holder.buttonPlus.setOnClickListener(v -> {
             int currentPos = holder.getAdapterPosition();
@@ -73,7 +81,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 CartItem currentItem = cartItems.get(currentPos);
                 CartManager.removeBook(currentItem.getBook());
                 notifyItemRemoved(currentPos);
-                // No need for notifyItemRangeChanged as it can cause flickering if handled by the parent
                 listener.onItemRemoved();
             }
         });
@@ -87,7 +94,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     static class CartViewHolder extends RecyclerView.ViewHolder {
         TextView textViewCartTitle, textViewCartPrice, textViewQuantity;
         MaterialButton buttonMinus, buttonPlus;
-        ImageView buttonRemove;
+        ImageView buttonRemove, imageViewCartCover;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +104,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             buttonMinus = itemView.findViewById(R.id.buttonMinus);
             buttonPlus = itemView.findViewById(R.id.buttonPlus);
             buttonRemove = itemView.findViewById(R.id.buttonRemove);
+            imageViewCartCover = itemView.findViewById(R.id.imageViewCartCover);
         }
     }
 }

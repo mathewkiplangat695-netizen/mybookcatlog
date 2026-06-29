@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-import java.util.Locale;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
 
@@ -47,8 +46,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         holder.textViewBookTitle.setText(book.getTitle());
         holder.textViewBookAuthor.setText(book.getAuthor());
         holder.textViewBookGenre.setText(book.getGenre());
-        holder.textViewBookPrice.setText(String.format(Locale.getDefault(), "KES %.2f", book.getPrice()));
         holder.textViewBookRating.setText(String.valueOf(book.getRating()));
+        
+        // Price removed from view
+        holder.textViewBookPrice.setVisibility(View.GONE);
         
         if (book.getImageResId() != 0) {
             holder.imageViewBookCover.setImageResource(book.getImageResId());

@@ -3,11 +3,10 @@ package com.example.mybookcatalog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +16,9 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,10 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private BookAdapter adapter;
     private CartAdapter cartAdapter;
     private RecyclerView recyclerView;
+    private ViewPager2 viewPagerBanner;
     private final List<TextView> categoryTabs = new ArrayList<>();
     private View categoryScroll;
-    private View searchCardView;
-    private EditText editTextSearch;
     private TextView textViewPageTitle;
     private View cartSummaryCard;
     private TextView textViewTotalAmount;
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
     private String currentCategory = "All";
     private boolean isCartView = false;
+    
+    private final Handler bannerHandler = new Handler(Looper.getMainLooper());
+    private Runnable bannerRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +56,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerViewBooks);
+        viewPagerBanner = findViewById(R.id.viewPagerBanner);
         categoryScroll = findViewById(R.id.categoryScroll);
-        searchCardView = findViewById(R.id.searchCardView);
-        editTextSearch = findViewById(R.id.editTextSearch);
         textViewPageTitle = findViewById(R.id.textViewPageTitle);
         cartSummaryCard = findViewById(R.id.cartSummaryCard);
         textViewTotalAmount = findViewById(R.id.textViewTotalAmount);
@@ -62,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         setupBooks();
         setupRecyclerView();
+        setupBanner();
         setupCategories();
-        setupSearch();
         setupBottomNavigation();
         
         showHomeView();
@@ -72,6 +75,62 @@ public class MainActivity extends AppCompatActivity {
             if (CartManager.getCartItems().isEmpty()) return;
             showPaymentBottomSheet();
         });
+    }
+
+    private void setupBanner() {
+        List<Book> featuredBooks = new ArrayList<>();
+        if (allBooks.size() >= 5) {
+            featuredBooks.add(allBooks.get(0));
+            featuredBooks.add(allBooks.get(1));
+            featuredBooks.add(allBooks.get(4));
+            featuredBooks.add(allBooks.get(8));
+            featuredBooks.add(allBooks.get(9));
+        } else {
+            featuredBooks.addAll(allBooks);
+        }
+        
+        BannerAdapter bannerAdapter = new BannerAdapter(featuredBooks);
+        viewPagerBanner.setAdapter(bannerAdapter);
+        
+        // Carousel effect
+        viewPagerBanner.setClipToPadding(false);
+        viewPagerBanner.setClipChildren(false);
+        viewPagerBanner.setOffscreenPageLimit(3);
+        viewPagerBanner.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer transformer = new CompositePageTransformer();
+        transformer.addTransformer(new MarginPageTransformer(40));
+        transformer.addTransformer((page, position) -> {
+            float r = 1 - Math.abs(position);
+            page.setScaleY(0.85f + r * 0.15f);
+        });
+        viewPagerBanner.setPageTransformer(transformer);
+
+        // Auto-slide logic
+        bannerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                int nextItem = viewPagerBanner.getCurrentItem() + 1;
+                if (nextItem >= featuredBooks.size()) {
+                    nextItem = 0;
+                }
+                viewPagerBanner.setCurrentItem(nextItem, true);
+                bannerHandler.postDelayed(this, 3000);
+            }
+        };
+    }
+
+    private void startBannerAutoSlide() {
+        if (bannerRunnable != null) {
+            bannerHandler.removeCallbacks(bannerRunnable);
+            bannerHandler.postDelayed(bannerRunnable, 3000);
+        }
+    }
+
+    private void stopBannerAutoSlide() {
+        if (bannerRunnable != null) {
+            bannerHandler.removeCallbacks(bannerRunnable);
+        }
     }
 
     private void showPaymentBottomSheet() {
@@ -86,8 +145,7 @@ public class MainActivity extends AppCompatActivity {
         View optionCard = view.findViewById(R.id.optionCard);
         View buttonConfirmPayment = view.findViewById(R.id.buttonConfirmPayment);
 
-        final double total = CartManager.getTotalPrice();
-        textViewSheetTotal.setText(getString(R.string.label_total_amount, total));
+        textViewSheetTotal.setVisibility(View.GONE);
 
         optionMpesa.setOnClickListener(v -> {
             radioMpesa.setChecked(true);
@@ -107,18 +165,18 @@ public class MainActivity extends AppCompatActivity {
 
             String method = radioMpesa.isChecked() ? getString(R.string.payment_method_mpesa) : getString(R.string.payment_method_card);
             bottomSheetDialog.dismiss();
-            processFinalCheckout(total, method);
+            processFinalCheckout(method);
         });
 
         bottomSheetDialog.show();
     }
 
-    private void processFinalCheckout(double total, String paymentMethod) {
+    private void processFinalCheckout(String paymentMethod) {
         String date = new SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(new Date());
         String orderId = "ORD" + System.currentTimeMillis();
         
         // Save to Order History
-        Order newOrder = new Order(orderId, date, total, new ArrayList<>(CartManager.getCartItems()));
+        Order newOrder = new Order(orderId, date, new ArrayList<>(CartManager.getCartItems()));
         SessionManager.addOrder(newOrder);
 
         Toast.makeText(this, getString(R.string.msg_payment_successful, paymentMethod), Toast.LENGTH_LONG).show();
@@ -135,20 +193,28 @@ public class MainActivity extends AppCompatActivity {
         updateCartBadge();
         if (isCartView) {
             showCartView();
+        } else if (viewPagerBanner.getVisibility() == View.VISIBLE) {
+            startBannerAutoSlide();
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopBannerAutoSlide();
+    }
+
     private void setupBooks() {
-        allBooks.add(new Book("The Last Ember", "Daniel Levin", "Historical Thriller", "A former archaeologist is pulled into a deadly conspiracy when ancient secrets buried beneath Rome resurface.", 1200.00, 4.5f, R.drawable.thelastember));
-        allBooks.add(new Book("Quantum Mirage", "Lila Chen", "Science Fiction", "In a future where time travel is illegal, a rogue physicist must choose between saving the world or saving her daughter.", 1500.00, 4.8f, R.drawable.thequantummirage));
-        allBooks.add(new Book("Roots & Wings", "Maria Esteban", "Literary Fiction", "A moving generational story of a Cuban-American family searching for identity, belonging, and redemption.", 950.00, 4.2f, R.drawable.rootandwings));
-        allBooks.add(new Book("The Mind Sculptor", "Dr. Evan Shaw", "Psychology / Non-Fiction", "A groundbreaking look at neuroplasticity and how you can rewire your brain for success and happiness.", 1800.00, 4.9f, R.drawable.themindsculptor));
-        allBooks.add(new Book("Inkbound: Chronicles of the Lost Library", "J.R. Faulkner", "Fantasy / Adventure", "A young librarian discovers that ancient books can open portals to other worlds—but not all stories have happy endings.", 1100.00, 4.6f, R.drawable.inkbound));
-        allBooks.add(new Book("Startup Savage", "Nicole Vega", "Business", "A brutally honest guide to launching a tech startup in the real world, full of failures, pivots, and unexpected wins.", 1300.00, 4.4f, R.drawable.startupsavage));
-        allBooks.add(new Book("Beneath Crimson Skies", "Tomasz Novak", "Historical Fiction", "The intertwined lives of resistance fighters, spies, and survivors during the Nazi occupation of Warsaw.", 1400.00, 4.7f, 0));
-        allBooks.add(new Book("The Art of Stillness", "Tara Bell", "Self-Help", "Learn how to find peace in a chaotic world by mastering the ancient wisdom of stillness.", 800.00, 4.3f, 0));
-        allBooks.add(new Book("Neon Ghosts", "Khalid Jones", "Urban Fantasy", "A private investigator with the ability to see spirits uncovers a supernatural conspiracy beneath the city's neon lights.", 1150.00, 4.5f, 0));
-        allBooks.add(new Book("Eat Green, Live Clean", "Dr. Sanjay Patel", "Health & Wellness", "A practical guide to plant-based nutrition and detox living, backed by science and easy recipes.", 1600.00, 4.8f, 0));
+        allBooks.add(new Book("The Last Ember", "Daniel Levin", "Historical Thriller", "A former archaeologist is pulled into a deadly conspiracy when ancient secrets buried beneath Rome resurface.", 4.5f, R.drawable.thelastember));
+        allBooks.add(new Book("Quantum Mirage", "Lila Chen", "Science Fiction", "In a future where time travel is illegal, a rogue physicist must choose between saving the world or saving her daughter.", 4.8f, R.drawable.thequantummirage));
+        allBooks.add(new Book("Roots & Wings", "Maria Esteban", "Literary Fiction", "A moving generational story of a Cuban-American family searching for identity, belonging, and redemption.", 4.2f, R.drawable.rootandwings));
+        allBooks.add(new Book("The Mind Sculptor", "Dr. Evan Shaw", "Psychology / Non-Fiction", "A groundbreaking look at neuroplasticity and how you can rewire your brain for success and happiness.", 4.9f, R.drawable.themindsculptor));
+        allBooks.add(new Book("Inkbound: Chronicles of the Lost Library", "J.R. Faulkner", "Fantasy / Adventure", "A young librarian discovers that ancient books can open portals to other worlds—but not all stories have happy endings.", 4.6f, R.drawable.inkbound));
+        allBooks.add(new Book("Startup Savage", "Nicole Vega", "Business", "A brutally honest guide to launching a tech startup in the real world, full of failures, pivots, and unexpected wins.", 4.4f, R.drawable.startupsavage));
+        allBooks.add(new Book("Beneath Crimson Skies", "Tomasz Novak", "Historical Fiction", "The intertwined lives of resistance fighters, spies, and survivors during the Nazi occupation of Warsaw.", 4.7f, R.drawable.beneathcrimsonskies));
+        allBooks.add(new Book("The Art of Stillness", "Tara Bell", "Self-Help", "Learn how to find peace in a chaotic world by mastering the ancient wisdom of stillness.", 4.3f, R.drawable.theartofstillness));
+        allBooks.add(new Book("Neon Ghosts", "Khalid Jones", "Urban Fantasy", "A private investigator with the ability to see spirits uncovers a supernatural conspiracy beneath the city's neon lights.", 4.5f, R.drawable.neonghosts));
+        allBooks.add(new Book("Eat Green, Live Clean", "Dr. Sanjay Patel", "Health & Wellness", "A practical guide to plant-based nutrition and detox living, backed by science and easy recipes.", 4.8f, R.drawable.eatgreenliveclean));
     }
 
     private void setupRecyclerView() {
@@ -190,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateCartTotal() {
-        textViewTotalAmount.setText(getString(R.string.label_price_kes, CartManager.getTotalPrice()));
+        textViewTotalAmount.setText("Free Catalog");
     }
 
     private void updateCartBadge() {
@@ -224,30 +290,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setupSearch() {
-        editTextSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                applyFilters();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
-    }
-
     private void applyFilters() {
-        String query = editTextSearch.getText().toString().toLowerCase().trim();
         List<Book> filteredList = new ArrayList<>();
 
         for (Book book : allBooks) {
             boolean matchesCategory = currentCategory.equals("All") || book.getGenre().contains(currentCategory);
-            boolean matchesQuery = book.getTitle().toLowerCase().contains(query) || book.getAuthor().toLowerCase().contains(query);
-            
-            if (matchesCategory && matchesQuery) {
+
+            if (matchesCategory) {
                 filteredList.add(book);
             }
         }
@@ -259,23 +308,11 @@ public class MainActivity extends AppCompatActivity {
             tab.setSelected(false);
             tab.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
             ViewCompat.setBackgroundTintList(tab, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary_light)));
-            tab.setTypeface(null, android.graphics.Typeface.NORMAL);
         }
 
         selectedTab.setSelected(true);
         selectedTab.setTextColor(ContextCompat.getColor(this, android.R.color.white));
-        selectedTab.setTypeface(null, android.graphics.Typeface.BOLD);
-
-        // Apply unique colors for selected state
-        int colorRes = R.color.cat_all;
-        int id = selectedTab.getId();
-        if (id == R.id.catFiction) colorRes = R.color.cat_fiction;
-        else if (id == R.id.catThriller) colorRes = R.color.cat_thriller;
-        else if (id == R.id.catSciFi) colorRes = R.color.cat_scifi;
-        else if (id == R.id.catSelfHelp) colorRes = R.color.cat_selfhelp;
-        else if (id == R.id.catBusiness) colorRes = R.color.cat_business;
-
-        ViewCompat.setBackgroundTintList(selectedTab, ColorStateList.valueOf(ContextCompat.getColor(this, colorRes)));
+        ViewCompat.setBackgroundTintList(selectedTab, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary)));
     }
 
     private void setupBottomNavigation() {
@@ -301,34 +338,34 @@ public class MainActivity extends AppCompatActivity {
     private void showHomeView() {
         isCartView = false;
         textViewPageTitle.setText(R.string.title_book_catalog);
-        searchCardView.setVisibility(View.VISIBLE);
+        viewPagerBanner.setVisibility(View.VISIBLE);
         categoryScroll.setVisibility(View.GONE);
         cartSummaryCard.setVisibility(View.GONE);
         adapter.setShowAddToCart(false);
         recyclerView.setAdapter(adapter);
         currentCategory = "All";
-        editTextSearch.setText("");
         applyFilters();
+        startBannerAutoSlide();
     }
 
     private void showCategoriesView() {
         isCartView = false;
         textViewPageTitle.setText(R.string.title_browse_genres);
-        searchCardView.setVisibility(View.VISIBLE);
+        viewPagerBanner.setVisibility(View.GONE);
         categoryScroll.setVisibility(View.VISIBLE);
         cartSummaryCard.setVisibility(View.GONE);
         adapter.setShowAddToCart(true);
         recyclerView.setAdapter(adapter);
         currentCategory = "All";
-        editTextSearch.setText("");
         applyFilters();
         updateTabStyles(findViewById(R.id.catAll));
+        stopBannerAutoSlide();
     }
 
     private void showCartView() {
         isCartView = true;
         textViewPageTitle.setText(R.string.title_shopping_cart);
-        searchCardView.setVisibility(View.GONE);
+        viewPagerBanner.setVisibility(View.GONE);
         categoryScroll.setVisibility(View.GONE);
         
         List<CartItem> cartItems = CartManager.getCartItems();
@@ -341,5 +378,6 @@ public class MainActivity extends AppCompatActivity {
             updateCartTotal();
             recyclerView.setAdapter(cartAdapter);
         }
+        stopBannerAutoSlide();
     }
 }

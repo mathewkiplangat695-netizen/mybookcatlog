@@ -1,24 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+g<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFCFB"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/surface"
         app:elevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
             android:paddingTop="20dp"
             android:paddingBottom="16dp">
 
@@ -28,57 +27,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Book Catalog"
-                android:textColor="#2C3E50"
-                android:textSize="26sp"
+                android:textColor="@color/primary"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 android:letterSpacing="-0.02"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Functional Search Bar -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/searchCardView"
+            <!-- Banner ViewPager2 -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerBanner"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:cardBackgroundColor="#F5F5F5"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
+                android:layout_height="180dp"
+                android:layout_marginBottom="16dp"
+                android:paddingHorizontal="12dp"
+                android:clipToPadding="false"
+                android:clipChildren="false" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@android:drawable/ic_menu_search"
-                        app:tint="#2C3E50" />
-
-                    <EditText
-                        android:id="@+id/editTextSearch"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="12dp"
-                        android:background="@android:color/transparent"
-                        android:hint="Search books or authors..."
-                        android:imeOptions="actionSearch"
-                        android:inputType="text"
-                        android:textColor="#2C3E50"
-                        android:textColorHint="#95A5A6"
-                        android:textSize="14sp"
-                        android:maxLines="1" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Book Categories Container (Hidden in Home/Cart) -->
+            <!-- Book Categories Container -->
             <HorizontalScrollView
                 android:id="@+id/categoryScroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:scrollbars="none">
+                android:layout_marginTop="8dp"
+                android:scrollbars="none"
+                android:paddingHorizontal="20dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -121,26 +94,28 @@
         android:clipToPadding="false"
         android:paddingHorizontal="12dp"
         android:paddingTop="8dp"
-        android:paddingBottom="160dp"
+        android:paddingBottom="100dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/book_item" />
 
-    <!-- Cart Summary Card (Shown only in Cart View) -->
+    <!-- Cart Summary Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cartSummaryCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginHorizontal="16dp"
         android:visibility="gone"
-        app:cardBackgroundColor="@android:color/white"
+        app:cardBackgroundColor="@color/surface"
+        app:cardCornerRadius="20dp"
         app:cardElevation="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp"
+            android:padding="20dp"
             android:gravity="center_vertical">
 
             <LinearLayout
@@ -152,16 +127,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Amount"
-                    android:textColor="#7F8C8D"
-                    android:textSize="12sp" />
+                    android:text="Order Summary"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true" />
 
                 <TextView
                     android:id="@+id/textViewTotalAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KES 0.00"
-                    android:textColor="#2C3E50"
+                    android:text="Free Catalog"
+                    android:textColor="@color/primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -169,22 +146,25 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonCheckout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CHECKOUT"
-                app:backgroundTint="#2C3E50"
-                app:cornerRadius="8dp" />
+                android:layout_height="56dp"
+                android:text="PROCEED"
+                android:paddingHorizontal="24dp"
+                app:backgroundTint="@color/accent"
+                app:cornerRadius="16dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="72dp"
         android:layout_gravity="bottom"
-        android:background="@android:color/white"
-        app:itemIconTint="@color/bnv_tab_item_foreground"
-        app:itemTextColor="@color/bnv_tab_item_foreground"
+        android:background="@color/surface"
+        app:itemIconSize="24dp"
+        app:itemIconTint="@color/primary"
+        app:itemTextColor="@color/primary"
         app:labelVisibilityMode="labeled"
+        app:elevation="16dp"
         app:menu="@menu/bottom_nav_menu" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -12,14 +12,14 @@
         android:layout_height="4dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="24dp"
-        android:background="#DDDDDD" />
+        android:background="@color/divider" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Payment Method"
-        android:textColor="#2C3E50"
-        android:textSize="20sp"
+        android:text="Choose Collection Method"
+        android:textColor="@color/primary"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
@@ -27,19 +27,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Total Amount: KES 0.00"
-        android:textColor="#7F8C8D"
-        android:textSize="14sp" />
+        android:text="Proceed to add to your collection"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/optionMpesa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:cardBackgroundColor="#FDFCFB"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        app:strokeColor="#EEEEEE"
+        app:cardBackgroundColor="@color/surface"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:strokeColor="@color/divider"
         app:strokeWidth="1dp">
 
         <LinearLayout
@@ -47,21 +48,21 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="18dp">
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@android:drawable/ic_dialog_email"
-                app:tint="#27AE60" />
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@android:drawable/ic_dialog_info"
+                app:tint="@color/success" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="M-Pesa"
-                android:textColor="#2C3E50"
+                android:text="Instant Download"
+                android:textColor="@color/text_main"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -69,6 +70,7 @@
                 android:id="@+id/radioMpesa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/primary"
                 android:clickable="false" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -78,10 +80,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        app:cardBackgroundColor="#FDFCFB"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        app:strokeColor="#EEEEEE"
+        app:cardBackgroundColor="@color/surface"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:strokeColor="@color/divider"
         app:strokeWidth="1dp">
 
         <LinearLayout
@@ -89,21 +91,21 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="18dp">
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@android:drawable/ic_menu_today"
-                app:tint="#2C3E50" />
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@android:drawable/ic_menu_save"
+                app:tint="@color/primary" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Credit / Debit Card"
-                android:textColor="#2C3E50"
+                android:text="Save for Later"
+                android:textColor="@color/text_main"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -111,6 +113,7 @@
                 android:id="@+id/radioCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/primary"
                 android:clickable="false" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -118,12 +121,13 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonConfirmPayment"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
         android:layout_marginTop="32dp"
-        android:text="PAY &amp; PLACE ORDER"
+        android:text="CONFIRM COLLECTION"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:backgroundTint="#2C3E50"
-        app:cornerRadius="12dp" />
+        app:backgroundTint="@color/primary"
+        app:cornerRadius="16dp"
+        app:elevation="4dp" />
 
 </LinearLayout>

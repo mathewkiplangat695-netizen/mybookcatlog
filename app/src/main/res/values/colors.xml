@@ -2,18 +2,41 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#2C3E50</color>
-    <color name="primary_light">#F5F5F5</color>
-    <color name="accent">#E67E22</color>
-    <color name="text_main">#2C3E50</color>
-    <color name="text_secondary">#7F8C8D</color>
-    <color name="background_paper">#FDFCFB</color>
 
-    <!-- Category Colors -->
-    <color name="cat_all">#2C3E50</color>
-    <color name="cat_fiction">#3498DB</color>
-    <color name="cat_thriller">#E74C3C</color>
-    <color name="cat_scifi">#9B59B6</color>
-    <color name="cat_selfhelp">#27AE60</color>
-    <color name="cat_business">#F39C12</color>
+    <!-- Primary Branding Colors -->
+    <color name="primary">#1A237E</color> <!-- Deep Indigo -->
+    <color name="primary_dark">#121858</color>
+    <color name="primary_light">#E8EAF6</color>
+
+    <!-- Accent Colors -->
+    <color name="accent">#FF6D00</color> <!-- Vibrant Orange -->
+    <color name="accent_light">#FFF3E0</color>
+
+    <!-- Background & Surfaces -->
+    <color name="background">#F8F9FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_main">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- Category / Genre Colors - More vibrant -->
+    <color name="cat_all">#3F51B5</color>
+    <color name="cat_fiction">#00BCD4</color>
+    <color name="cat_thriller">#F44336</color>
+    <color name="cat_scifi">#9C27B0</color>
+    <color name="cat_selfhelp">#4CAF50</color>
+    <color name="cat_business">#FF9800</color>
+
+    <!-- Functional Colors -->
+    <color name="error">#D32F2F</color>
+    <color name="success">#388E3C</color>
+    <color name="divider">#EEEEEE</color>
+
+    <!-- Navigation -->
+    <color name="nav_active">#1A237E</color>
+    <color name="nav_inactive">#9E9E9E</color>
 </resources>

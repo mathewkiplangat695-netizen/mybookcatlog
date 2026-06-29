@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,12 +18,12 @@
         android:padding="12dp">
 
         <!-- Book Cover -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="84dp"
-            android:layout_height="124dp"
-            app:cardBackgroundColor="#FDFCFB"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="2dp">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="90dp"
+            android:layout_height="130dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp">
 
             <ImageView
                 android:id="@+id/imageViewBookCover"
@@ -30,9 +31,8 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@android:drawable/ic_menu_agenda"
-                app:tint="#D4C4B7"
-                tools:tint="@null" />
-        </androidx.cardview.widget.CardView>
+                tools:ignore="ContentDescription" />
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:textColor="@color/text_main"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -59,27 +59,30 @@
                 android:layout_marginTop="2dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp"
-                tools:text="Daniel Roth" />
+                tools:text="Daniel Levin" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/primary_light"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp">
 
                 <ImageView
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:src="@android:drawable/btn_star_big_on"
-                    app:tint="#F1C40F" />
+                    app:tint="@color/accent" />
 
                 <TextView
                     android:id="@+id/textViewBookRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:textColor="@color/text_main"
+                    android:textColor="@color/primary"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     tools:text="4.5" />
@@ -92,7 +95,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_genre_tag"
                 android:paddingHorizontal="10dp"
-                android:paddingVertical="3dp"
+                android:paddingVertical="4dp"
                 android:textColor="@android:color/white"
                 android:textSize="10sp"
                 android:textStyle="bold"
@@ -110,9 +113,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/text_main"
-                    android:textSize="15sp"
+                    android:textColor="@color/accent"
+                    android:textSize="16sp"
                     android:textStyle="bold"
+                    android:visibility="gone"
                     tools:text="KES 1,200.00" />
 
                 <com.google.android.material.button.MaterialButton
@@ -122,15 +126,15 @@
                     android:layout_height="36dp"
                     android:padding="0dp"
                     android:text="ADD TO CART"
-                    android:textColor="@color/accent"
-                    android:textSize="11sp"
+                    android:textColor="@color/primary"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     app:icon="@android:drawable/ic_input_add"
                     app:iconPadding="4dp"
-                    app:iconSize="14dp"
-                    app:iconTint="@color/accent" />
+                    app:iconSize="16dp"
+                    app:iconTint="@color/primary" />
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

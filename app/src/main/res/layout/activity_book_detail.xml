@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF9F6">
+    android:background="@color/background">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:background="#E5E4E2"
+        android:background="@color/primary"
         android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="#2C3E50"
+            app:contentScrim="@color/primary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
@@ -27,8 +27,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@android:drawable/ic_menu_gallery"
-                app:layout_collapseMode="parallax"
-                app:tint="#1A000000" />
+                app:layout_collapseMode="parallax" />
 
             <View
                 android:layout_width="match_parent"
@@ -49,6 +48,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_bottom_sheet"
+        android:layout_marginTop="-24dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,8 +61,8 @@
                 android:id="@+id/textViewDetailTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#2C3E50"
-                android:textSize="26sp"
+                android:textColor="@color/primary"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,12 +74,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textColor="#8E735B"
+                android:textColor="@color/text_secondary"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewDetailTitle"
-                tools:text="by Daniel Roth" />
+                tools:text="by Daniel Levin" />
 
             <LinearLayout
                 android:id="@+id/ratingLayout"
@@ -87,6 +88,9 @@
                 android:layout_marginTop="12dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:background="@color/primary_light"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewDetailAuthor">
 
@@ -94,14 +98,14 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@android:drawable/btn_star_big_on"
-                    app:tint="#F1C40F" />
+                    app:tint="@color/accent" />
 
                 <TextView
                     android:id="@+id/textViewDetailRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:textColor="#2C3E50"
+                    android:layout_marginStart="6dp"
+                    android:textColor="@color/primary"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     tools:text="4.5" />
@@ -109,9 +113,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="(120 reviews)"
-                    android:textColor="#95A5A6"
+                    android:layout_marginStart="8dp"
+                    android:text="Rating"
+                    android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -135,20 +139,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:textColor="#2C3E50"
-                android:textSize="22sp"
+                android:textColor="@color/accent"
+                android:textSize="24sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewDetailGenre"
-                tools:text="KES 1,200.00" />
+                tools:text="Free Catalog Item" />
 
             <View
                 android:id="@+id/divider"
-                android:layout_width="40dp"
-                android:layout_height="3dp"
+                android:layout_width="60dp"
+                android:layout_height="4dp"
                 android:layout_marginTop="24dp"
-                android:background="#8E735B"
+                android:background="@color/accent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewDetailPrice" />
 
@@ -157,9 +162,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Synopsis"
-                android:textColor="#2C3E50"
-                android:textSize="18sp"
+                android:text="About this book"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider" />
@@ -170,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:lineSpacingExtra="8dp"
-                android:textColor="#5D6D7E"
+                android:textColor="@color/text_main"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -180,14 +185,15 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonBuy"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="64dp"
                 android:layout_marginTop="48dp"
-                android:text="ADD TO CART"
+                android:text="ADD TO MY COLLECTION"
                 android:textAllCaps="true"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:backgroundTint="#2C3E50"
-                app:cornerRadius="12dp"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="16dp"
+                app:elevation="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewDetailDescription" />
 

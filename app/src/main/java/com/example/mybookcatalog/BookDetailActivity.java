@@ -1,6 +1,7 @@
 package com.example.mybookcatalog;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,8 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.util.Locale;
 
 public class BookDetailActivity extends AppCompatActivity {
 
@@ -42,8 +41,10 @@ public class BookDetailActivity extends AppCompatActivity {
             author.setText("by " + book.getAuthor());
             rating.setText(String.valueOf(book.getRating()));
             genre.setText(book.getGenre());
-            price.setText(String.format(Locale.getDefault(), "Price: KES %.2f", book.getPrice()));
             description.setText(book.getDescription());
+            
+            // Price removed from view
+            price.setVisibility(View.GONE);
 
             if (book.getImageResId() != 0) {
                 cover.setImageResource(book.getImageResId());

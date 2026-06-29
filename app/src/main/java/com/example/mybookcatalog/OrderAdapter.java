@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-import java.util.Locale;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
@@ -31,7 +30,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         Order order = orderList.get(position);
         holder.textViewOrderId.setText("Order #" + order.getOrderId().substring(Math.max(0, order.getOrderId().length() - 8)));
         holder.textViewOrderDate.setText(order.getDate());
-        holder.textViewOrderTotal.setText(String.format(Locale.getDefault(), "KES %.2f", order.getTotalAmount()));
+        
+        // Total amount removed from view
+        holder.textViewOrderTotal.setVisibility(View.GONE);
 
         StringBuilder items = new StringBuilder();
         for (int i = 0; i < order.getItems().size(); i++) {
