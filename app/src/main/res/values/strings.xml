@@ -9,4 +9,25 @@
     <string name="msg_added_to_cart">%1$s added to cart!</string>
     <string name="payment_method_mpesa">M-Pesa</string>
     <string name="payment_method_card">Card</string>
+
+    <!-- Category Tabs -->
+    <string name="cat_all">All</string>
+    <string name="cat_fiction">Fiction</string>
+    <string name="cat_thriller">Thriller</string>
+    <string name="cat_scifi">Sci-Fi</string>
+    <string name="cat_self_help">Self-Help</string>
+    <string name="cat_business">Business</string>
+
+    <!-- Cart & Payment -->
+    <string name="order_summary">Order Summary</string>
+    <string name="free_catalog">Free Catalog</string>
+    <string name="btn_proceed">PROCEED</string>
+    <string name="payment_method_title">Choose Collection Method</string>
+    <string name="payment_method_subtitle">Proceed to add to your collection</string>
+    <string name="method_instant_download">Instant Download</string>
+    <string name="method_save_later">Save for Later</string>
+    <string name="btn_confirm_collection">CONFIRM COLLECTION</string>
+
+    <!-- Task 3.v: Version Patch -->
+    <string name="app_version_patch">v1.1 Patch</string>
 </resources>

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SessionManager {
-    private static User currentUser = new User("mathew koech", "mathewkiplangat695@gmail.com", "password123");
+    private static User currentUser = new User("mathew koech", "mathewkiplangat695@gmail.com");
     private static List<Order> orderHistory = new ArrayList<>();
     private static List<User> registeredUsers = new ArrayList<>();
 
@@ -13,17 +13,17 @@ public class SessionManager {
         registeredUsers.add(currentUser);
     }
 
-    public static boolean register(String name, String email, String password) {
+    public static boolean register(String name, String email) {
         for (User u : registeredUsers) {
             if (u.getEmail().equalsIgnoreCase(email)) return false;
         }
-        registeredUsers.add(new User(name, email, password));
+        registeredUsers.add(new User(name, email));
         return true;
     }
 
-    public static boolean login(String email, String password) {
+    public static boolean login(String email) {
         for (User u : registeredUsers) {
-            if (u.getEmail().equalsIgnoreCase(email) && u.getPassword().equals(password)) {
+            if (u.getEmail().equalsIgnoreCase(email)) {
                 currentUser = u;
                 return true;
             }

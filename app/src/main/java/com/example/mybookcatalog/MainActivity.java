@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -92,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         BannerAdapter bannerAdapter = new BannerAdapter(featuredBooks);
         viewPagerBanner.setAdapter(bannerAdapter);
         
-        // Carousel effect
         viewPagerBanner.setClipToPadding(false);
         viewPagerBanner.setClipChildren(false);
         viewPagerBanner.setOffscreenPageLimit(3);
@@ -106,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         });
         viewPagerBanner.setPageTransformer(transformer);
 
-        // Auto-slide logic
         bannerRunnable = new Runnable() {
             @Override
             public void run() {
@@ -138,23 +138,23 @@ public class MainActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.layout_payment_bottom_sheet, (ViewGroup) findViewById(android.R.id.content), false);
         bottomSheetDialog.setContentView(view);
 
-        TextView textViewSheetTotal = view.findViewById(R.id.textViewSheetTotal);
         final RadioButton radioMpesa = view.findViewById(R.id.radioMpesa);
         final RadioButton radioCard = view.findViewById(R.id.radioCard);
-        View optionMpesa = view.findViewById(R.id.optionMpesa);
-        View optionCard = view.findViewById(R.id.optionCard);
-        View buttonConfirmPayment = view.findViewById(R.id.buttonConfirmPayment);
+        final View layoutMpesaPhone = view.findViewById(R.id.layoutMpesaPhone);
+        final TextInputEditText editTextMpesaPhone = view.findViewById(R.id.editTextMpesaPhone);
+        final View buttonConfirmPayment = view.findViewById(R.id.buttonConfirmPayment);
+        final ProgressBar progressBarPayment = view.findViewById(R.id.progressBarPayment);
 
-        textViewSheetTotal.setVisibility(View.GONE);
-
-        optionMpesa.setOnClickListener(v -> {
+        view.findViewById(R.id.optionMpesa).setOnClickListener(v -> {
             radioMpesa.setChecked(true);
             radioCard.setChecked(false);
+            layoutMpesaPhone.setVisibility(View.VISIBLE);
         });
 
-        optionCard.setOnClickListener(v -> {
+        view.findViewById(R.id.optionCard).setOnClickListener(v -> {
             radioCard.setChecked(true);
             radioMpesa.setChecked(false);
+            layoutMpesaPhone.setVisibility(View.GONE);
         });
 
         buttonConfirmPayment.setOnClickListener(v -> {
@@ -163,9 +163,24 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            String method = radioMpesa.isChecked() ? getString(R.string.payment_method_mpesa) : getString(R.string.payment_method_card);
-            bottomSheetDialog.dismiss();
-            processFinalCheckout(method);
+            if (radioMpesa.isChecked()) {
+                String phone = editTextMpesaPhone.getText().toString();
+                if (phone.isEmpty() || phone.length() < 10) {
+                    Toast.makeText(this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            // Task 3.iv: Simulate Mobile Money API request
+            buttonConfirmPayment.setEnabled(false);
+            progressBarPayment.setVisibility(View.VISIBLE);
+            ((TextView)buttonConfirmPayment).setTextColor(ContextCompat.getColor(this, android.R.color.transparent));
+
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                String method = radioMpesa.isChecked() ? getString(R.string.payment_method_mpesa) : getString(R.string.payment_method_card);
+                bottomSheetDialog.dismiss();
+                processFinalCheckout(method);
+            }, 2000); // 2-second delay to simulate API latency
         });
 
         bottomSheetDialog.show();
@@ -175,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
         String date = new SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(new Date());
         String orderId = "ORD" + System.currentTimeMillis();
         
-        // Save to Order History
         Order newOrder = new Order(orderId, date, new ArrayList<>(CartManager.getCartItems()));
         SessionManager.addOrder(newOrder);
 
@@ -256,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateCartTotal() {
-        textViewTotalAmount.setText("Free Catalog");
+        textViewTotalAmount.setText(R.string.free_catalog);
     }
 
     private void updateCartBadge() {
@@ -292,13 +306,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void applyFilters() {
         List<Book> filteredList = new ArrayList<>();
-
         for (Book book : allBooks) {
             boolean matchesCategory = currentCategory.equals("All") || book.getGenre().contains(currentCategory);
-
-            if (matchesCategory) {
-                filteredList.add(book);
-            }
+            if (matchesCategory) filteredList.add(book);
         }
         adapter.updateList(filteredList);
     }

@@ -19,19 +19,18 @@ public class SignupActivity extends AppCompatActivity {
 
         TextInputEditText editTextName = findViewById(R.id.editTextName);
         TextInputEditText editTextEmail = findViewById(R.id.editTextEmailSignup);
-        TextInputEditText editTextPassword = findViewById(R.id.editTextPasswordSignup);
+        // Password field is removed from layout in next step
         MaterialButton buttonSignup = findViewById(R.id.buttonSignup);
         TextView textViewLoginLink = findViewById(R.id.textViewLoginLink);
 
         buttonSignup.setOnClickListener(v -> {
             String name = editTextName.getText().toString().trim();
             String email = editTextEmail.getText().toString().trim();
-            String password = editTextPassword.getText().toString().trim();
 
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            if (name.isEmpty() || email.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
-                if (SessionManager.register(name, email, password)) {
+                if (SessionManager.register(name, email)) {
                     Toast.makeText(this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
                     finish(); // Go back to login
                 } else {

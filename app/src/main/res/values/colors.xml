@@ -3,40 +3,38 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Primary Branding Colors -->
-    <color name="primary">#1A237E</color> <!-- Deep Indigo -->
-    <color name="primary_dark">#121858</color>
-    <color name="primary_light">#E8EAF6</color>
+    <!-- Warm Color Palette -->
+    <color name="primary">#8D6E63</color> <!-- Warm Brown -->
+    <color name="primary_dark">#5D4037</color> <!-- Deep Chocolate -->
+    <color name="primary_light">#D7CCC8</color> <!-- Soft Beige -->
 
-    <!-- Accent Colors -->
-    <color name="accent">#FF6D00</color> <!-- Vibrant Orange -->
-    <color name="accent_light">#FFF3E0</color>
+    <color name="accent">#FF8F00</color> <!-- Amber/Amber Dark -->
+    <color name="accent_light">#FFECB3</color> <!-- Pale Gold -->
 
-    <!-- Background & Surfaces -->
-    <color name="background">#F8F9FA</color>
+    <color name="background">#FFF8E1</color> <!-- Warm Creamy White -->
     <color name="surface">#FFFFFF</color>
     <color name="card_background">#FFFFFF</color>
 
     <!-- Text Colors -->
-    <color name="text_main">#212121</color>
-    <color name="text_secondary">#757575</color>
-    <color name="text_hint">#BDBDBD</color>
+    <color name="text_main">#3E2723</color> <!-- Dark Brown Text -->
+    <color name="text_secondary">#795548</color>
+    <color name="text_hint">#BCAAA4</color>
     <color name="text_on_primary">#FFFFFF</color>
 
-    <!-- Category / Genre Colors - More vibrant -->
-    <color name="cat_all">#3F51B5</color>
-    <color name="cat_fiction">#00BCD4</color>
-    <color name="cat_thriller">#F44336</color>
-    <color name="cat_scifi">#9C27B0</color>
-    <color name="cat_selfhelp">#4CAF50</color>
-    <color name="cat_business">#FF9800</color>
+    <!-- Warm Category Colors -->
+    <color name="cat_all">#795548</color>
+    <color name="cat_fiction">#EF6C00</color>
+    <color name="cat_thriller">#C62828</color>
+    <color name="cat_scifi">#6A1B9A</color>
+    <color name="cat_selfhelp">#2E7D32</color>
+    <color name="cat_business">#BF360C</color>
 
     <!-- Functional Colors -->
-    <color name="error">#D32F2F</color>
+    <color name="error">#B71C1C</color>
     <color name="success">#388E3C</color>
-    <color name="divider">#EEEEEE</color>
+    <color name="divider">#D7CCC8</color>
 
     <!-- Navigation -->
-    <color name="nav_active">#1A237E</color>
-    <color name="nav_inactive">#9E9E9E</color>
+    <color name="nav_active">#8D6E63</color>
+    <color name="nav_inactive">#BCAAA4</color>
 </resources>

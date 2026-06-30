@@ -1,4 +1,4 @@
-g<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,18 +21,38 @@ g<?xml version="1.0" encoding="utf-8"?>
             android:paddingTop="20dp"
             android:paddingBottom="16dp">
 
-            <!-- Bookstore Brand / Page Title -->
-            <TextView
-                android:id="@+id/textViewPageTitle"
-                android:layout_width="wrap_content"
+            <!-- Header with Title and Version Badge (Task 3.v) -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Book Catalog"
-                android:textColor="@color/primary"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:letterSpacing="-0.02"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/textViewPageTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/title_book_catalog"
+                    android:textColor="@color/primary"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="-0.02" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_version_patch"
+                    android:textColor="@color/accent"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_category_pill"
+                    android:backgroundTint="@color/accent_light"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp" />
+            </LinearLayout>
 
             <!-- Banner ViewPager2 -->
             <androidx.viewpager2.widget.ViewPager2
@@ -61,27 +81,28 @@ g<?xml version="1.0" encoding="utf-8"?>
                     <TextView
                         android:id="@+id/catAll"
                         style="@style/AlibabaCategoryTab"
-                        android:text="All" />
+                        android:text="@string/cat_all" />
                     <TextView
                         android:id="@+id/catFiction"
                         style="@style/AlibabaCategoryTab"
-                        android:text="Fiction" />
+                        android:text="@string/cat_fiction" />
                     <TextView
                         android:id="@+id/catThriller"
                         style="@style/AlibabaCategoryTab"
-                        android:text="Thriller" />
+                        android:text="@string/cat_thriller" />
                     <TextView
                         android:id="@+id/catSciFi"
                         style="@style/AlibabaCategoryTab"
-                        android:text="Sci-Fi" />
+                        android:text="@string/cat_scifi" />
                     <TextView
                         android:id="@+id/catSelfHelp"
                         style="@style/AlibabaCategoryTab"
-                        android:text="Self-Help" />
+                        android:text="@string/cat_self_help" />
                     <TextView
                         android:id="@+id/catBusiness"
-                        style="@style/AlibabaCategoryTab"
-                        android:text="Business" />
+                        git init
+                    # Initialize git in your project folder                        style="@style/AlibabaCategoryTab"
+                        android:text="@string/cat_business" />
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>
@@ -127,7 +148,7 @@ g<?xml version="1.0" encoding="utf-8"?>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order Summary"
+                    android:text="@string/order_summary"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -137,7 +158,7 @@ g<?xml version="1.0" encoding="utf-8"?>
                     android:id="@+id/textViewTotalAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Free Catalog"
+                    android:text="@string/free_catalog"
                     android:textColor="@color/primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -147,7 +168,7 @@ g<?xml version="1.0" encoding="utf-8"?>
                 android:id="@+id/buttonCheckout"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
-                android:text="PROCEED"
+                android:text="@string/btn_proceed"
                 android:paddingHorizontal="24dp"
                 app:backgroundTint="@color/accent"
                 app:cornerRadius="16dp" />
