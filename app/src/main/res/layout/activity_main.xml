@@ -21,7 +21,7 @@
             android:paddingTop="20dp"
             android:paddingBottom="16dp">
 
-            <!-- Header with Title and Version Badge (Task 3.v) -->
+            <!-- Header with Title and Version Badge -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/app_version_patch"
                     android:textColor="@color/accent"
-                    android:textSize="10sp"
+                    android:textSize="11sp"
                     android:textStyle="bold"
                     android:background="@drawable/bg_category_pill"
                     android:backgroundTint="@color/accent_light"
