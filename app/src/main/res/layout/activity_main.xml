@@ -100,8 +100,7 @@
                         android:text="@string/cat_self_help" />
                     <TextView
                         android:id="@+id/catBusiness"
-                        git init
-                    # Initialize git in your project folder                        style="@style/AlibabaCategoryTab"
+                        style="@style/AlibabaCategoryTab"
                         android:text="@string/cat_business" />
                 </LinearLayout>
             </HorizontalScrollView>
